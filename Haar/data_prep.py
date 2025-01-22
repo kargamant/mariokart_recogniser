@@ -1,6 +1,6 @@
 import os
 import cv2
-from environments import CURRENT_DIR
+from environments import CURRENT_DIR, GOOD_FILE_DIR, BAD_FILE_DIR
 
 
 class DataPreparator:
@@ -14,7 +14,7 @@ class DataPreparator:
         images = os.path.join(train_dir, "images")
 
 
-        with open(os.path.join(CURRENT_DIR, "Good.dat"), 'w+') as good_file:
+        with open(os.path.join(CURRENT_DIR, GOOD_FILE_DIR), 'w+') as good_file:
             for label in os.listdir(labels):
                 image = os.path.join(images, label.replace('.txt', '.jpg'))
                 with open(os.path.join(labels, label), "r") as file:
@@ -23,7 +23,7 @@ class DataPreparator:
                     to_write = self.to_haar(*list(map(float, file.readline().split(' '))), *im.shape)
                     self.drop_label_record(*to_write, good_file, image)
 
-        with open(os.path.join(CURRENT_DIR, "Bad.dat"), 'w+') as bad_file:
+        with open(os.path.join(CURRENT_DIR, BAD_FILE_DIR), 'w+') as bad_file:
             for file in os.listdir(self.bad_directory)[:-1:]:
                 bad_file.write(os.path.join(self.bad_directory, file) + '\n')
 
@@ -40,7 +40,7 @@ class DataPreparator:
         x1 = int(centre_x - width / 2)
         y1 = int(centre_y - height / 2)
 
-        return class_label, x1, y1, width, height
+        return 1, x1, y1, width, height
 
     def drop_label_record(self, class_label, x1, y1, width, height, file, file_path):
         record = f'{file_path} {class_label} {x1} {y1} {width} {height}\n'

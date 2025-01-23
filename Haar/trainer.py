@@ -10,4 +10,4 @@ class Trainer:
 
     @classmethod
     def train_cascade(cls, data_dir, vec_file_path, bad_file_path, numPos, numNeg, numStages, w, h):
-        subprocess.run(f'{CV_TRAINCASCADE_PATH} -data {data_dir} -vec {vec_file_path} -bg {bad_file_path} -numPos {numPos} -numNeg {numNeg} -numStages {numStages}, -w {w} -h {h}', shell=True)
+        subprocess.run(f'{CV_TRAINCASCADE_PATH} -data {data_dir} -vec {vec_file_path} -bg {bad_file_path} -numPos {numPos} -numNeg {numNeg} -numStages {numStages}, -w {w} -h {h} -mode ALL', shell=True)

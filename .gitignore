@@ -1,5 +1,8 @@
 /boo/
 /coin_cart/
 *.mp4
+*.jpg
+*.webp
 /gameplay/
 /cv_build/
+/results/

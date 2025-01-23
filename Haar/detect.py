@@ -11,3 +11,10 @@ class Detector:
         for (x, y, w, h) in obj:
             cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 255), 5)
         return image
+
+    def detect_image(self, image, minNeighbors = 20, minSize = (70, 70)):
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        obj = self.model.detectMultiScale(gray, minNeighbors=minNeighbors, minSize=minSize)
+        for (x, y, w, h) in obj:
+            cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 5)
+        return image

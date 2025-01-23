@@ -1,0 +1,7 @@
+path: ../mariokart_recogniser/boo_yolo
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 1
+names: ['Buu-Huu']

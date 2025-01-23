@@ -50,4 +50,22 @@ if __name__ == '__main__':
               test_results.append(detector.detect(os.path.join(CURRENT_DIR, BOO_DIR, 'valid', 'images', str(img)), args.minNeighbours, (args.width, args.height)))
               print(img)
         Visualizer.viz(test_results, write=args.write_res, save_dir=args.results_dir)
-    print('Bye!')
+
+    # Just experiment
+    # img74 = cv2.imread(os.path.join(CURRENT_DIR, BOO_DIR, 'train', 'images', '267_png.rf.1febe6b0d1325197a730a0d186c38610.jpg'))
+    # h, w, c = img74.shape
+    # with open(os.path.join(CURRENT_DIR, BOO_DIR, 'train', 'labels', '267_png.rf.1febe6b0d1325197a730a0d186c38610.txt'), 'r') as file:
+    #     cl, x, y, w_bb, h_bb = list(map(float, file.readline().split(' ')))
+    #
+    # x *= w
+    # y *= h
+    # w_bb *= w
+    # h_bb *= h
+    #
+    # cv2.rectangle(img74, (int(x - w/2), int(y - h/2)), (int(x + w/2), int(y + h/2)), (0, 0, 255), 5)
+    # cv2.imshow('img', img74)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    print('Bye!\n')
+
+

@@ -1,2 +1,3 @@
 # mariokart_recogniser
-Recogniser of objects in mariokart using two approaches
+Recogniser of Boo-Huu in mariokart using two approaches: Haar cascades and YOLO5.  
+

@@ -49,7 +49,7 @@ if __name__ == '__main__':
         result = detector.detect(args.one_file, args.minNeighbours, (args.width, args.height))
         Visualizer.viz([result])
     elif args.one_file and args.yolo:
-        detector_yolo = YoloDetector(os.path.join(WEIGHTS_DIR, 'exp5', 'weights', 'best.pt'))
+        detector_yolo = YoloDetector(os.path.join(WEIGHTS_DIR, 'best.pt'))
         res = detector_yolo.detect(args.one_file)
         Visualizer.viz([res])
     elif args.test and args.haar:
@@ -60,7 +60,7 @@ if __name__ == '__main__':
               print(img)
         Visualizer.viz(test_results, write=args.write_res, save_dir=args.results_dir)
     elif args.test and args.yolo:
-        detector_yolo = YoloDetector(os.path.join(WEIGHTS_DIR, 'exp5', 'weights', 'best.pt'))
+        detector_yolo = YoloDetector(os.path.join(WEIGHTS_DIR, 'best.pt'))
         for img in os.listdir(os.path.join(CURRENT_DIR, BOO_DIR, 'test', 'images')):
             res = detector_yolo.detect(os.path.join(CURRENT_DIR, BOO_DIR, 'test', 'images', str(img)))
             plt.imsave(os.path.join(CURRENT_DIR, 'results_yolo', f'{img.replace(".jpg", "")}_test.jpg'), res)

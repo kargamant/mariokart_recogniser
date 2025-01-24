@@ -15,7 +15,7 @@ while True:
 
     new_frame = detector.detect_image(frame, minNeighbors=70, minSize=(90, 100))
     cv2.imshow('Recognition', new_frame)
-    sleep(0.05)
+    sleep(0.02)
 
     if cv2.waitKey(1) == ord('q'):
         break

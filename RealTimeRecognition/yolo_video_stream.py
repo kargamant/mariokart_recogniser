@@ -5,8 +5,8 @@ from environments import CURRENT_DIR, WEIGHTS_DIR
 from YOLO import YoloDetector
 
 
-cap = cv2.VideoCapture(os.path.join(CURRENT_DIR, 'mk_boo.mp4'))
-detector = YoloDetector(os.path.join(WEIGHTS_DIR, 'exp5', 'weights', 'best.pt'))
+cap = cv2.VideoCapture(2) # os.path.join(CURRENT_DIR, 'mk_boo.mp4')
+detector = YoloDetector(os.path.join(WEIGHTS_DIR, 'best.pt'))
 
 while True:
     ret, frame = cap.read()

@@ -1,8 +1,10 @@
 import cv2
 from Haar import DataPreparator, Trainer, Detector, Visualizer
+from YOLO import YoloDetector
 import os
 from environments import *
 import argparse
+import matplotlib.pyplot as plt
 
 
 if __name__ == '__main__':
@@ -10,6 +12,8 @@ if __name__ == '__main__':
     # todo: also make an option to choose between boo and coins recognition
 
     parser = argparse.ArgumentParser()
+    parser.add_argument('-yolo', '--yolo', action='store_true') # these are for testing mode
+    parser.add_argument('-haar', '--haar', action='store_true')
     parser.add_argument('-prep', '--preparator', action='store_true')
     parser.add_argument('-train', '--trainer', action='store_true')
     parser.add_argument('-all', '--all', action='store_true')
@@ -26,6 +30,7 @@ if __name__ == '__main__':
     parser.add_argument('-res', '--results_dir', type=str, default='results')
 
 
+
     args = parser.parse_args()
 
     # full pipeline
@@ -40,16 +45,25 @@ if __name__ == '__main__':
 
     detector = Detector(os.path.join(CURRENT_DIR, MODEL_DIR, 'cascade.xml'))
 
-    if args.one_file:
+    if args.one_file and args.haar:
         result = detector.detect(args.one_file, args.minNeighbours, (args.width, args.height))
         Visualizer.viz([result])
-    elif args.test:
+    elif args.one_file and args.yolo:
+        detector_yolo = YoloDetector(os.path.join(WEIGHTS_DIR, 'exp5', 'weights', 'best.pt'))
+        res = detector_yolo.detect(args.one_file)
+        Visualizer.viz([res])
+    elif args.test and args.haar:
         # testing
         test_results = []
         for img in os.listdir(os.path.join(CURRENT_DIR, BOO_DIR, 'valid', 'images'))[:args.nimages:]:
               test_results.append(detector.detect(os.path.join(CURRENT_DIR, BOO_DIR, 'valid', 'images', str(img)), args.minNeighbours, (args.width, args.height)))
               print(img)
         Visualizer.viz(test_results, write=args.write_res, save_dir=args.results_dir)
+    elif args.test and args.yolo:
+        detector_yolo = YoloDetector(os.path.join(WEIGHTS_DIR, 'exp5', 'weights', 'best.pt'))
+        for img in os.listdir(os.path.join(CURRENT_DIR, BOO_DIR, 'test', 'images')):
+            res = detector_yolo.detect(os.path.join(CURRENT_DIR, BOO_DIR, 'test', 'images', str(img)))
+            plt.imsave(os.path.join(CURRENT_DIR, 'results_yolo', f'{img.replace(".jpg", "")}_test.jpg'), res)
 
     # Just experiment
     # img74 = cv2.imread(os.path.join(CURRENT_DIR, BOO_DIR, 'train', 'images', '267_png.rf.1febe6b0d1325197a730a0d186c38610.jpg'))

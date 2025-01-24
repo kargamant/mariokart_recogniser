@@ -12,6 +12,7 @@ while True:
     ret, frame = cap.read()
     if not ret:
         break
+
     new_frame = detector.detect_image(frame, minNeighbors=70, minSize=(90, 100))
     cv2.imshow('Recognition', new_frame)
     sleep(0.05)

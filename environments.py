@@ -19,6 +19,6 @@ CV_CREATESAMPLES_PATH = '/mnt/c/Users/Honor/Documents/cv_build/bin/opencv_create
 CV_TRAINCASCADE_PATH = '/mnt/c/Users/Honor/Documents/cv_build/bin/opencv_traincascade'
 
 # YOLO vars
-YOLO_MODEL = 'yolo5s.pt'
+YOLO_MODEL = 'yolov5s.pt'
 YAML_DATA_DESCRIPTION = 'dataset.yaml'
-WEIGHTS_DIR = 'C:\\Users\\Honor\\Documents\\yolov5\\runs\\train' # just for now, but you can change to your own
+WEIGHTS_DIR = os.path.join(r'C:\Users\Honor\Documents\yolov5', 'runs', 'train')

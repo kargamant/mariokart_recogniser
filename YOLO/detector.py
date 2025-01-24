@@ -11,3 +11,8 @@ class YoloDetector:
         res = self.model(path_to_image)
         res = np.squeeze(res.render())
         return res
+
+    def detect_image(self, image):
+        res = self.model(image)
+        res = np.squeeze(res.render())
+        return res

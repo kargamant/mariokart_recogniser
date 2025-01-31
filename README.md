@@ -18,6 +18,7 @@ $ python main.py -yolo -test -res results_dir
 $ python main.py -haar -test -res results_dir
 ```
 > -res option can be omitted if you want results to be shown in separate window and not saved.
+  
 For more information run it with --help option.  
 ### Video stream recognition  
 Basic usage.  

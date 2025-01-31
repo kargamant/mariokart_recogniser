@@ -13,16 +13,22 @@ class HaarStreamer:
     def process_stream(self, res_dir=''):
         cap = cv2.VideoCapture(self.stream)
 
+        ret, frame = cap.read()
+        out_stream = cv2.VideoWriter(res_dir, -1, 20, frame.shape[::-1][1::])
         while True:
             ret, frame = cap.read()
             if not ret:
                 break
 
-            new_frame = self.detector.detect_image(frame, minNeighbors=70, minSize=(90, 100))
-            cv2.imshow('Recognition', new_frame)
+            res = self.detector.detect_image(frame, minNeighbors=70, minSize=(90, 100))
+            if len(res_dir):
+                out_stream.write(frame)
+            else:
+                cv2.imshow('Recognition', res)
             sleep(0.02)
 
             if cv2.waitKey(1) == ord('q'):
                 break
         cap.release()
+        out_stream.release()
         cv2.destroyAllWindows()

@@ -13,16 +13,21 @@ class YoloStreamer:
     def process_stream(self, res_dir=''):
         cap = cv2.VideoCapture(self.stream)
 
-        # todo: make VideoWriter
+        ret, frame = cap.read()
+        out_stream = cv2.VideoWriter(res_dir, -1, 20, frame.shape[::-1][1::])
         while True:
             ret, frame = cap.read()
             if not ret:
                 break
 
             res = self.detector.detect_image(frame)
-            cv2.imshow('Recognition', res)
+            if len(res_dir):
+                out_stream.write(frame)
+            else:
+                cv2.imshow('Recognition', res)
 
             if cv2.waitKey(1) == ord('q'):
                 break
         cap.release()
+        out_stream.release()
         cv2.destroyAllWindows()

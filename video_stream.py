@@ -10,6 +10,7 @@ if __name__ == '__main__':
     parser.add_argument('-st', '--stream', type=str, default=os.path.join(CURRENT_DIR, 'mk_boo.mp4'), help='stream to get frames from')
     parser.add_argument('-res', '--results_dir', type=str, default='', help='where to save video')
 
+
     args = parser.parse_args()
     if args.yolo:
         try:

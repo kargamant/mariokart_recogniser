@@ -26,8 +26,7 @@ if __name__ == '__main__':
     parser.add_argument('-mnb', '--minNeighbours', type=int, default=20, help='min neighbours to recognise with haar')
     parser.add_argument('-test', '--test', action='store_true', help='test mode')
     parser.add_argument('-nimg', '--nimages', type=int, default=30, help='how many images to test from test set')
-    parser.add_argument('-write', '--write_res', action='store_true', help='flag that specifies that test results should be written and not shown')
-    parser.add_argument('-res', '--results_dir', type=str, default='results', help='test results directory. If not specified then results will be shown in window.')
+    parser.add_argument('-res', '--results_dir', type=str, default='', help='test results directory. If not specified then results will be shown in window.')
 
 
 
@@ -54,32 +53,29 @@ if __name__ == '__main__':
         Visualizer.viz([res])
     elif args.test and args.haar:
         # testing
-        test_results = []
-        for img in os.listdir(os.path.join(CURRENT_DIR, BOO_DIR, 'valid', 'images'))[:args.nimages:]:
-              test_results.append(detector.detect(os.path.join(CURRENT_DIR, BOO_DIR, 'valid', 'images', str(img)), args.minNeighbours, (args.width, args.height)))
+        print('If you want to quit the view mode and stop just hit q button')
+        for img in os.listdir(os.path.join(CURRENT_DIR, BOO_DIR, 'test', 'images'))[:args.nimages:]:
+              res = detector.detect(os.path.join(CURRENT_DIR, BOO_DIR, 'test', 'images', str(img)), args.minNeighbours, (args.width, args.height))
               print(img)
-        Visualizer.viz(test_results, write=args.write_res, save_dir=args.results_dir)
+              if len(args.results_dir):
+                  plt.imsave(os.path.join(args.results_dir, f'{img.replace(".jpg", "")}_test.jpg'), res)
+              else:
+                key_code = Visualizer.viz([res])
+                if key_code == ord('q'):
+                    break
     elif args.test and args.yolo:
         detector_yolo = YoloDetector(os.path.join(WEIGHTS_DIR, 'best.pt'))
+        print('If you want to quit the view mode and stop just hit q button')
         for img in os.listdir(os.path.join(CURRENT_DIR, BOO_DIR, 'test', 'images')):
             res = detector_yolo.detect(os.path.join(CURRENT_DIR, BOO_DIR, 'test', 'images', str(img)))
-            plt.imsave(os.path.join(CURRENT_DIR, 'results_yolo', f'{img.replace(".jpg", "")}_test.jpg'), res)
+            print(img)
+            if len(args.results_dir):
+                plt.imsave(os.path.join(args.results_dir, f'{img.replace(".jpg", "")}_test.jpg'), res)
+            else:
+                key_code = Visualizer.viz([res])
+                if key_code == ord('q'):
+                    break
 
-    # Just experiment
-    # img74 = cv2.imread(os.path.join(CURRENT_DIR, BOO_DIR, 'train', 'images', '267_png.rf.1febe6b0d1325197a730a0d186c38610.jpg'))
-    # h, w, c = img74.shape
-    # with open(os.path.join(CURRENT_DIR, BOO_DIR, 'train', 'labels', '267_png.rf.1febe6b0d1325197a730a0d186c38610.txt'), 'r') as file:
-    #     cl, x, y, w_bb, h_bb = list(map(float, file.readline().split(' ')))
-    #
-    # x *= w
-    # y *= h
-    # w_bb *= w
-    # h_bb *= h
-    #
-    # cv2.rectangle(img74, (int(x - w/2), int(y - h/2)), (int(x + w/2), int(y + h/2)), (0, 0, 255), 5)
-    # cv2.imshow('img', img74)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
     print('Bye!\n')
 
 

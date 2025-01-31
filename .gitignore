@@ -3,6 +3,15 @@
 *.mp4
 *.jpg
 *.webp
+*.pt
+*.dat
+*.txt
+*.png
+*.vec
 /gameplay/
 /cv_build/
 /results/
+boo_detect/
+boo_yolo/
+results_7070/
+results_yolo/

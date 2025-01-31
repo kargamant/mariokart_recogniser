@@ -12,22 +12,22 @@ if __name__ == '__main__':
     # todo: also make an option to choose between boo and coins recognition
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-yolo', '--yolo', action='store_true') # these are for testing mode
-    parser.add_argument('-haar', '--haar', action='store_true')
-    parser.add_argument('-prep', '--preparator', action='store_true')
-    parser.add_argument('-train', '--trainer', action='store_true')
-    parser.add_argument('-all', '--all', action='store_true')
-    parser.add_argument('-one_file', '--one_file')
-    parser.add_argument('-w', '--width', type=int, default=70)
-    parser.add_argument('-he', '--height', type=int, default=70)
-    parser.add_argument('-pos', '--positives', type=int, default=70)
-    parser.add_argument('-neg', '--negatives', type=int, default=50)
-    parser.add_argument('-st', '--stages', type=int, default=5)
-    parser.add_argument('-mnb', '--minNeighbours', type=int, default=20)
-    parser.add_argument('-test', '--test', action='store_true')
-    parser.add_argument('-nimg', '--nimages', type=int, default=30)
-    parser.add_argument('-write', '--write_res', action='store_true')
-    parser.add_argument('-res', '--results_dir', type=str, default='results')
+    parser.add_argument('-yolo', '--yolo', action='store_true', help='chooses yolo over haar cascades to perform command') # these are for testing mode
+    parser.add_argument('-haar', '--haar', action='store_true', help='chooses haar over yolo to perform command')
+    parser.add_argument('-prep', '--preparator', action='store_true', help='turns on data preparation from original dataset')
+    parser.add_argument('-train', '--trainer', action='store_true', help='trains haar cascade. yolo training should be done separately')
+    parser.add_argument('-all', '--all', action='store_true', help='prep+train+test for haar cascade')
+    parser.add_argument('-one_file', '--one_file', help='feeding one file to get output with bounding box')
+    parser.add_argument('-w', '--width', type=int, default=70, help='minimum width')
+    parser.add_argument('-he', '--height', type=int, default=70, help='minimum height')
+    parser.add_argument('-pos', '--positives', type=int, default=70, help='number of positives to use during training haar')
+    parser.add_argument('-neg', '--negatives', type=int, default=50, help='number of negatives to use during training haar')
+    parser.add_argument('-st', '--stages', type=int, default=5, help='number of stages to train haar')
+    parser.add_argument('-mnb', '--minNeighbours', type=int, default=20, help='min neighbours to recognise with haar')
+    parser.add_argument('-test', '--test', action='store_true', help='test mode')
+    parser.add_argument('-nimg', '--nimages', type=int, default=30, help='how many images to test from test set')
+    parser.add_argument('-write', '--write_res', action='store_true', help='flag that specifies that test results should be written and not shown')
+    parser.add_argument('-res', '--results_dir', type=str, default='results', help='test results directory. If not specified then results will be shown in window.')
 
 
 
